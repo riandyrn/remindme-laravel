@@ -24,8 +24,8 @@ When the current `access_token` is already expired, client must call [Refresh Ac
 
 Currently only `2` users available in the system:
 
-- username: `alice`, password: `123456`
-- username: `bob`, password: `123456`
+- email: `alice@mail.com`, password: `123456`
+- email: `bob@mail.com`, password: `123456`
 
 > **Note:**
 >
@@ -33,7 +33,7 @@ Currently only `2` users available in the system:
 
 **Body:**
 
-- `username`, String => The username for login into the system.
+- `email`, String => The email for login into the system.
 - `password`, String => The password for given username.
 
 **Example Request:**
@@ -43,7 +43,7 @@ POST /session
 Content-Type: application/json
 
 {
-    "username": "alice",
+    "email": "alice@mail.com",
     "password": "123456"
 }
 ```
@@ -57,6 +57,11 @@ Content-Type: application/json
 {
     "ok": true,
     "data": {
+		"user": {
+			"id": 1,
+			"email": "alice@mail.com",
+			"name": "Alice"
+		},
         "access_token": "933e89b1-980b-4c98-8d73-18f7ccfac25d",
         "refresh_token": "8eebef3c-03e0-4ead-b78e-27bac3fc43c3"
     }
@@ -166,9 +171,9 @@ Content-Type: application/json
 			{
 				"id": 1,
 				"title": "Meeting with Bob",
-				"description": "Discuss about new project with Ahmad",
+				"description": "Discuss about new project related to new system",
 				"remind_at": "1701246722",
-				"start_at": "1701223200"
+				"event_at": "1701223200"
 			},
 
 		],
@@ -186,6 +191,55 @@ No specific error responses.
 ## Create Reminder
 
 POST: `/api/reminders`
+
+This endpoint is used by client to create a new reminder. When the reminder is successfully created, the system will send email notification to the user when the reminder is due (when `reminder_at` is reached).
+
+**Header:**
+
+- `Authorization`, String => The value is `Bearer <access_token>`.
+
+**Request Body:**
+
+- `title`, String => Title of the reminder.
+- `description`, String => Description of the reminder.
+- `remind_at`, Integer => Unix timestamp in seconds when the reminder should be reminded to the user.
+- `event_at`, Integer => Unix timestamp in seconds when the event will occurs.
+
+**Example Request:**
+
+```json
+POST /api/reminders
+Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
+
+{
+	"title": "Meeting with Bob",
+	"description": "Discuss about new project related to new system",
+	"remind_at": 1701246722,
+	"event_at": 1701223200
+}
+```
+
+**Success Response:**
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+	"ok": true,
+	"data": {
+		"id": 1,
+		"title": "Meeting with Bob",
+		"description": "Discuss about new project related to new system",
+		"remind_at": "1701246722",
+		"event_at": "1701223200"
+	}
+}
+```
+
+**Error Responses:**
+
+No specific error responses.
 
 [Back to Top](#rest-api)
 
