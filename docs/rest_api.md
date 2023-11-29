@@ -84,7 +84,7 @@ Content-Type: application/json
 
 ## Refresh Access Token
 
-PUT: `/session`
+PUT: `/api/session`
 
 This endpoint is used by client to replace expired `access_token` with the new one.
 
@@ -128,26 +128,81 @@ Content-Type: application/json
     }
     ```
 
-    Client will receive this error when it submitted invalid refresh token. There are 2 causes of invalid refresh token: either the value is incorrect or the value is deemed expired by the system. In case client receiving this error, it is expected to redirect user to the login page.
+    Client will receive this error when it submitted invalid refresh token. There are 2 causes of invalid refresh token: either the value is incorrect or the value is deemed expired by the system. In case client receiving this error, the client should redirect user to the login page.
 
 [Back to Top](#rest-api)
 
 ## List Reminders
 
+GET: `/api/reminders?limit={limit}`
+
+This endpoint returns the upcoming reminders for the user. The reminders are sorted by `remind_at` in ascending order.
+
+**Header:**
+
+- `Authorization`, String => The value is `Bearer <access_token>`.
+
+**Query Parameters:**
+
+- `limit`, Integer, _OPTIONAL_ => The maximum number of reminders to be returned. The default value is `10`.
+
+**Example Request:**
+
+```text
+GET /reminders?limit=5
+Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
+```
+
+**Success Response:**
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+	"ok": true,
+	"data": {
+		"reminders": [
+			{
+				"id": 1,
+				"title": "Meeting with Bob",
+				"description": "Discuss about new project with Ahmad",
+				"remind_at": "1701246722",
+				"start_at": "1701223200"
+			},
+
+		],
+		"limit": 5
+	}
+}
+```
+
+**Error Responses:**
+
+No specific error responses.
+
 [Back to Top](#rest-api)
 
 ## Create Reminder
+
+POST: `/api/reminders`
 
 [Back to Top](#rest-api)
 
 ## View Reminder
 
+GET: `/api/reminders/{id}`
+
 [Back to Top](#rest-api)
 
 ## Edit Reminder
 
+PUT: `/api/reminders/{id}`
+
 [Back to Top](#rest-api)
 
 ## Delete Reminder
+
+DELETE: `/api/reminders/{id}`
 
 [Back to Top](#rest-api)
