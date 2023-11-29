@@ -7,6 +7,7 @@ This document contains specification for common errors that will be happened on 
     ```json
     HTTP/1.1 400 Bad Request
     Content-Type: application/json
+  
     {
         "ok": false,
         "err": "ERR_BAD_REQUEST",
@@ -21,6 +22,7 @@ This document contains specification for common errors that will be happened on 
     ```json
     HTTP/1.1 401 Unauthorized
     Content-Type: application/json
+  
     {
         "ok": false,
         "err": "ERR_INVALID_ACCESS_TOKEN",
@@ -35,6 +37,7 @@ This document contains specification for common errors that will be happened on 
     ```json
     HTTP/1.1 403 Forbidden
     Content-Type: application/json
+  
     {
         "ok": false,
         "err": "ERR_FORBIDDEN_ACCESS",
@@ -49,6 +52,7 @@ This document contains specification for common errors that will be happened on 
     ```json
     HTTP/1.1 404 Not Found
     Content-Type: application/json
+  
     {
         "ok": false,
         "err": "ERR_NOT_FOUND",
@@ -61,6 +65,9 @@ This document contains specification for common errors that will be happened on 
 - Internal Server Error (`500`)
 
     ```json
+    HTTP/1.1 500 Internal Server Error
+    Content-Type: application/json
+  
     {
         "status": 500,
         "err": "ERR_INTERNAL_ERROR",
