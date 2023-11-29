@@ -20,8 +20,9 @@ You can check the API specification for this web app in [`rest_api.md`](./docs/r
 We will evaluate your submission based on these criteria:
 
 1. The quality of your web app experience from end-user perspective.
-2. Readability, maintainability, & testability of your code.
-3. The quality of your workflow when using Github to develop the web app. This includes the quality of your commit messages, pull requests, & branch naming.
+2. The correctness of your implementation according to the specification docs.
+3. Readability, maintainability, & testability of your code.
+4. The quality of your workflow when using Github to develop the web app. This includes the quality of your commit messages, pull requests, & branch naming.
 
 ## Submission
 
