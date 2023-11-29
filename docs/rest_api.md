@@ -247,6 +247,44 @@ No specific error responses.
 
 GET: `/api/reminders/{id}`
 
+This endpoint is used by client to view details of a reminder.
+
+**Header:**
+
+- `Authorization`, String => The value is `Bearer <access_token>`.
+
+**Path Parameters:**
+
+- `id`, Integer => Id of the reminder.
+
+**Example Request:**
+
+```text
+GET: /api/reminders/1
+```
+
+**Success Response:**
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+	"ok": true,
+	"data": {
+		"id": 1,
+		"title": "Meeting with Bob",
+		"description": "Discuss about new project related to new system",
+		"remind_at": "1701246722",
+		"event_at": "1701223200"
+	}
+}
+```
+
+**Error Responses:**
+
+No specific error responses.
+
 [Back to Top](#rest-api)
 
 ## Edit Reminder
