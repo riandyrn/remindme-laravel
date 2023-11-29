@@ -1,10 +1,10 @@
-# IngetIn - Laravel Challenge
+# RemindMe - Laravel Challenge
 
 Welcome to Nabitu take home challenge!
 
-In this repository you will find API specification & scaffolding code for the web app named `IngetIn`.
+In this repository you will find API specification & scaffolding code for the web app named `RemindMe`.
 
-`IngetIn` is a simple web app that allows users to create reminder for their schedules. It will send email notification to the user when the reminder is due.
+`RemindMe` is a simple web app that allows users to create reminder for their schedules. It will send email notification to the user when the reminder is due.
 
 You can check the API specification for this web app in [`rest_api.md`](./docs/rest_api.md).
 
