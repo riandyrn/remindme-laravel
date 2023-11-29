@@ -21,10 +21,14 @@ We will evaluate your submission based on these criteria:
 
 1. The quality of your web app experience from end-user perspective.
 2. Readability, maintainability, & testability of your code.
-3. The quality of your workflow when using Git to develop the web app. This includes the quality of your commit messages, pull requests, & branch naming.
+3. The quality of your workflow when using Github to develop the web app. This includes the quality of your commit messages, pull requests, & branch naming.
 
 ## Submission
 
 1. Fork this repository & do your work in your own forked repository.
 2. Submit your CV in PDF along with the URL of your forked repository to [this page](#TODO).
 3. We will review your submission & get back to you as soon as possible.
+
+> **Note:**
+>
+> If you have any questions regarding this challenge, please don't hesitate to open an issue in this repository.
