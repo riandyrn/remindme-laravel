@@ -57,11 +57,11 @@ Content-Type: application/json
 {
     "ok": true,
     "data": {
-		"user": {
-			"id": 1,
-			"email": "alice@mail.com",
-			"name": "Alice"
-		},
+        "user": {
+            "id": 1,
+            "email": "alice@mail.com",
+            "name": "Alice"
+        },
         "access_token": "933e89b1-980b-4c98-8d73-18f7ccfac25d",
         "refresh_token": "8eebef3c-03e0-4ead-b78e-27bac3fc43c3"
     }
@@ -169,20 +169,19 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"ok": true,
-	"data": {
-		"reminders": [
-			{
-				"id": 1,
-				"title": "Meeting with Bob",
-				"description": "Discuss about new project related to new system",
-				"remind_at": "1701246722",
-				"event_at": "1701223200"
-			},
-
-		],
-		"limit": 5
-	}
+    "ok": true,
+    "data": {
+        "reminders": [
+            {
+                "id": 1,
+                "title": "Meeting with Bob",
+                "description": "Discuss about new project related to new system",
+                "remind_at": "1701246722",
+                "event_at": "1701223200"
+            }
+        ],
+        "limit": 5
+    }
 }
 ```
 
@@ -218,10 +217,10 @@ POST /api/reminders
 Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
 
 {
-	"title": "Meeting with Bob",
-	"description": "Discuss about new project related to new system",
-	"remind_at": 1701246722,
-	"event_at": 1701223200
+    "title": "Meeting with Bob",
+    "description": "Discuss about new project related to new system",
+    "remind_at": 1701246722,
+    "event_at": 1701223200
 }
 ```
 
@@ -232,14 +231,14 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"ok": true,
-	"data": {
-		"id": 1,
-		"title": "Meeting with Bob",
-		"description": "Discuss about new project related to new system",
-		"remind_at": "1701246722",
-		"event_at": "1701223200"
-	}
+    "ok": true,
+    "data": {
+        "id": 1,
+        "title": "Meeting with Bob",
+        "description": "Discuss about new project related to new system",
+        "remind_at": "1701246722",
+        "event_at": "1701223200"
+    }
 }
 ```
 
@@ -279,14 +278,14 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"ok": true,
-	"data": {
-		"id": 1,
-		"title": "Meeting with Bob",
-		"description": "Discuss about new project related to new system",
-		"remind_at": "1701246722",
-		"event_at": "1701223200"
-	}
+    "ok": true,
+    "data": {
+        "id": 1,
+        "title": "Meeting with Bob",
+        "description": "Discuss about new project related to new system",
+        "remind_at": "1701246722",
+        "event_at": "1701223200"
+    }
 }
 ```
 
@@ -326,10 +325,10 @@ PUT /api/reminders/1
 Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
 
 {
-	"title": "Meeting with Bob",
-	"description": "Discuss about new project related to new system",
-	"remind_at": 1701246722,
-	"event_at": 1701223200
+    "title": "Meeting with Bob",
+    "description": "Discuss about new project related to new system",
+    "remind_at": 1701246722,
+    "event_at": 1701223200
 }
 ```
 
@@ -340,14 +339,14 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"ok": true,
-	"data": {
-		"id": 1,
-		"title": "Meeting with Bob",
-		"description": "Discuss about new project related to new system",
-		"remind_at": "1701246722",
-		"event_at": "1701223200"
-	}
+    "ok": true,
+    "data": {
+        "id": 1,
+        "title": "Meeting with Bob",
+        "description": "Discuss about new project related to new system",
+        "remind_at": "1701246722",
+        "event_at": "1701223200"
+    }
 }
 ```
 
@@ -386,7 +385,7 @@ HTTP/1.1 200 OK
 Content-Type: application/json
 
 {
-	"ok": true
+    "ok": true
 }
 ```
 
