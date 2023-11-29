@@ -85,7 +85,9 @@ Content-Type: application/json
 
     Client will receive this error when it submitted incorrect combination of username & password.
 
-[Back to Top](#http-api)
+[Back to Top](#rest-api)
+
+---
 
 ## Refresh Access Token
 
@@ -137,6 +139,8 @@ Content-Type: application/json
 
 [Back to Top](#rest-api)
 
+---
+
 ## List Reminders
 
 GET: `/api/reminders?limit={limit}`
@@ -187,6 +191,8 @@ Content-Type: application/json
 No specific error responses.
 
 [Back to Top](#rest-api)
+
+---
 
 ## Create Reminder
 
@@ -243,6 +249,8 @@ No specific error responses.
 
 [Back to Top](#rest-api)
 
+---
+
 ## View Reminder
 
 GET: `/api/reminders/{id}`
@@ -287,14 +295,51 @@ No specific error responses.
 
 [Back to Top](#rest-api)
 
+---
+
 ## Edit Reminder
 
 PUT: `/api/reminders/{id}`
 
 [Back to Top](#rest-api)
 
+---
+
 ## Delete Reminder
 
 DELETE: `/api/reminders/{id}`
 
+This endpoint is used by client to delete a reminder.
+
+**Header:**
+
+- `Authorization`, String => The value is `Bearer <access_token>`.
+
+**Path Parameters:**
+
+- `id`, Integer => Id of the reminder.
+
+**Example Request:**
+
+```text
+DELETE: /api/reminders/1
+```
+
+**Success Response:**
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+	"ok": true
+}
+```
+
+**Error Responses:**
+
+No specific error responses.
+
 [Back to Top](#rest-api)
+
+---
