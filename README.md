@@ -10,8 +10,8 @@ You can check the API specification for this web app in [`rest_api.md`](./docs/r
 
 ## Your Mission
 
-1. Build the web app based on specification written in `README.md` and [`rest_api.md`](./docs/rest_api.md). For the backend you must use **Laravel Framework**. For the frontend you can use any framework you like or even just vanilla HTML, CSS, & Javascript.
-2. Dockerize your system & make sure it can run with full functionality using [Docker Compose](https://docs.docker.com/compose/) in Linux-like environment. We will test your system in Ubuntu & MacOS.
+1. Build the web app based on specification written in `README.md` and [`rest_api.md`](./docs/rest_api.md). For the backend you must use **[Laravel Framework](https://laravel.com/)**. For the frontend you can use any framework you like or even just vanilla HTML, CSS, & Javascript. You can use [Laravel Blade](https://laravel.com/docs/10.x/blade) as well but make sure to make the view consume the REST API.
+2. Dockerize your system & make sure it can run with full functionality using [Docker Compose](https://docs.docker.com/compose/) in Linux-like environment. We will test your system in Ubuntu or MacOS during review.
 3. Write automated testing for your backend. At the very minimum you must implement unit testing (not feature testing). If you can write automated testing for your frontend as well, that would be great.
 4. Implement CI pipeline for your system. We recommend using [Github Actions](https://github.com/features/actions), but you can use any CI tool you like.
 
