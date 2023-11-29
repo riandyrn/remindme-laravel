@@ -269,6 +269,7 @@ This endpoint is used by client to view details of a reminder.
 
 ```text
 GET: /api/reminders/1
+Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
 ```
 
 **Success Response:**
@@ -300,6 +301,59 @@ No specific error responses.
 ## Edit Reminder
 
 PUT: `/api/reminders/{id}`
+
+This endpoint is used by client to edit a reminder.
+
+**Header:**
+
+- `Authorization`, String => The value is `Bearer <access_token>`.
+
+**Path Parameters:**
+
+- `id`, Integer => Id of the reminder.
+
+**Request Body:**
+
+- `title`, String, _OPTIONAL_ => Title of the reminder.
+- `description`, String, _OPTIONAL_ => Description of the reminder.
+- `remind_at`, Integer, _OPTIONAL_ => Unix timestamp in seconds when the reminder should be reminded to the user.
+- `event_at`, Integer, _OPTIONAL_ => Unix timestamp in seconds when the event will occurs.
+
+**Example Request:**
+
+```json
+PUT /api/reminders/1
+Authorization: Bearer 933e89b1-980b-4c98-8d73-18f7ccfac25d
+
+{
+	"title": "Meeting with Bob",
+	"description": "Discuss about new project related to new system",
+	"remind_at": 1701246722,
+	"event_at": 1701223200
+}
+```
+
+**Success Response:**
+
+```json
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+	"ok": true,
+	"data": {
+		"id": 1,
+		"title": "Meeting with Bob",
+		"description": "Discuss about new project related to new system",
+		"remind_at": "1701246722",
+		"event_at": "1701223200"
+	}
+}
+```
+
+**Error Responses:**
+
+No specific error responses.
 
 [Back to Top](#rest-api)
 
