@@ -27,7 +27,7 @@ We will evaluate your submission based on these criteria:
 ## Submission
 
 1. Fork this repository & do your work in your own forked repository.
-2. Submit your CV in PDF along with the URL of your forked repository to [this page](#TODO).
+2. Submit your CV in PDF along with the URL of your forked repository to [this page](https://ghazlabs.com/nabitu/senior-backend-developer-laravel.html).
 3. We will review your submission & get back to you as soon as possible.
 
 > **Note:**
