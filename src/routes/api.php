@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\TokenAbility;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/session', [AuthController::class, 'login']);
+
+Route::middleware([
+    'auth:sanctum',
+    'ability:' . TokenAbility::ISSUE_ACCESS_TOKEN->value,
+])->put('/session', [AuthController::class, 'refresh']);
+
+Route::middleware(
+    'auth:sanctum',
+    'ability:' . TokenAbility::ACCESS_API->value
+)->group(function () {
+    //
+});

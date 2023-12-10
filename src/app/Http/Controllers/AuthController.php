@@ -46,4 +46,23 @@ class AuthController extends Controller
         ];
         return response($responseData, 200);
     }
+
+    /**
+     * Refresh access token.
+     */
+    public function refresh(Request $request)
+    {
+        $accessToken = $request->user()->createToken(
+            'access_token',
+            [TokenAbility::ACCESS_API->value],
+            now()->addMinutes(config('sanctum.expiration'))
+        );
+        $responseData = [
+            'ok' => true,
+            'data' => [
+                'access_token' => $accessToken->plainTextToken,
+            ],
+        ];
+        return response($responseData, 200);
+    }
 }
