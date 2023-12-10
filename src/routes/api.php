@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Enums\TokenAbility;
 use App\Http\Controllers\Api\AuthController;
 
 /*
@@ -18,6 +19,10 @@ use App\Http\Controllers\Api\AuthController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_API->value]], function() {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
 });
+

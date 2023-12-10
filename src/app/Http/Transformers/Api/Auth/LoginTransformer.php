@@ -21,6 +21,7 @@ class LoginTransformer extends JsonResource
                 'name' => $this->name,
             ],
             'access_token' => $this->access_token,
+            'refresh_token' => $this->refresh_token,
         ];
     }
 }

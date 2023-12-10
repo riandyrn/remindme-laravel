@@ -7,6 +7,7 @@ use App\DataTransferObjects\Auth\LoginDto;
 use App\Http\Transformers\Api\Auth\RegisterTransformer;
 use App\Http\Transformers\Api\Auth\LoginTransformer;
 use App\Repositories\UserRepository;
+use App\Enums\TokenAbility;
 use Auth;
 
 class AuthService
@@ -43,17 +44,24 @@ class AuthService
             ])
         ) {
             $auth = Auth::user();
+
             $auth['access_token'] = $auth->createToken(
                 'auth_token',
-                ['access-api'],
+                [TokenAbility::ACCESS_API->value],
                 now()->addSeconds(20)
+            )->plainTextToken;
+
+            $auth['refresh_token'] = $auth->createToken(
+                'auth_token',
+                [TokenAbility::ISSUE_ACCESS_TOKEN->value],
+                now()->addDays(1)
             )->plainTextToken;
 
             return LoginTransformer::make($auth);
 
         } else {
             return [
-                'error_code' => 'ERR_LOGIN_NOT_FOUND_404',
+                'error_code' => 'ERR_INVALID_CREDS_404',
                 'message' => 'Email or password is wrong.'
             ];
         }
