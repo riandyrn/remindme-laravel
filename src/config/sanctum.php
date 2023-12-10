@@ -50,6 +50,9 @@ return [
 
     'expiration' => 1 / 60 * 20,
 
+    // Expiration for Refresh Token
+    'refresh_token_expiration' => 7 * 24 * 60, // 7 days
+
     /*
     |--------------------------------------------------------------------------
     | Token Prefix
