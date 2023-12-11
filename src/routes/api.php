@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Enums\TokenAbility;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ReminderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,6 @@ Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_AP
         return $request->user();
     });
 });
+Route::post('reminders', [ReminderController::class, 'create']);
 
 

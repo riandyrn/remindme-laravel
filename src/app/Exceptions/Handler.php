@@ -44,6 +44,7 @@ class Handler extends ExceptionHandler
 
             if ( $request->user() ) {
                 if ( $request->is('api/*') && !$request->user()->tokenCan(TokenAbility::ACCESS_API->value) ) {
+
                     return ApiFormatter::responseError(
                         'ERR_UNAUTHORIZED_401',
                         $e->getMessage(),

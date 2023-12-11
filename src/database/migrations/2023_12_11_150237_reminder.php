@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('reminders', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->datetime('remind_at')->nullable();
-            $table->datetime('event_at')->nullable();
+            $table->string('description');
+            $table->integer('remind_at');
+            $table->integer('event_at');
+            $table->integer('created_by');
             $table->timestamps();
         });
     }
