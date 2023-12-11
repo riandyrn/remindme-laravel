@@ -57,7 +57,9 @@ class ReminderRepository
     {
         $getReminder = $this->reminder::findOrFail($id);
 
-        return $getReminder->delete();
+        $getReminder->delete();
+
+        return;
     }
 
 }

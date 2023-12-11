@@ -31,7 +31,7 @@ class AuthController extends Controller
                 RegisterDto::fromApiRequest($request)
             );
 
-            if ( $results['error_code'] != null ) {
+            if ( $results && $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
                     $results['error_code'],
                     $results['message'],
@@ -62,7 +62,7 @@ class AuthController extends Controller
                 LoginDto::fromApiRequest($request)
             );
 
-            if ( $results['error_code'] != null ) {
+            if ( $results && $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
                     $results['error_code'],
                     $results['message'],

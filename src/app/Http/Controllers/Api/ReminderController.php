@@ -8,6 +8,7 @@ use App\Http\Requests\Api\Reminder\CreateRequest;
 use App\DataTransferObjects\Reminder\CreateDto;
 use App\DataTransferObjects\Reminder\ListsDto;
 use App\DataTransferObjects\Reminder\DetailDto;
+use App\DataTransferObjects\Reminder\DeleteDto;
 use App\Helpers\ApiFormatter;
 use Illuminate\Http\JsonResponse;
 use App\Services\ReminderService;
@@ -30,7 +31,7 @@ class ReminderController extends Controller
                 CreateDto::fromApiRequest($request)
             );
 
-            if ( $results['error_code'] != null ) {
+            if ( $results && $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
                     $results['error_code'],
                     $results['message'],
@@ -82,7 +83,37 @@ class ReminderController extends Controller
                 DetailDto::fromApiRequest($request)
             );
 
-            if ( $results['error_code'] != null ) {
+            if ( $results && $results['error_code'] != null ) {
+                return ApiFormatter::responseError(
+                    $results['error_code'],
+                    $results['message'],
+                    $results['status_code'],
+                );
+            }
+
+            return ApiFormatter::responseSuccess(
+                $results,
+            );
+
+        } catch (Exception $e) {
+
+            return ApiFormatter::responseError(
+                'ERR_INTERNAL_SERVER_500',
+                $e->getMessage(),
+                500
+            );
+
+        }
+    }
+
+    public function delete(Request $request): JsonResponse
+    {
+        try {
+            $results = $this->reminderService->delete(
+                DeleteDto::fromApiRequest($request)
+            );
+
+            if ( $results && $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
                     $results['error_code'],
                     $results['message'],
