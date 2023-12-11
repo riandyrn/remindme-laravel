@@ -78,4 +78,16 @@ class ReminderController extends Controller
             new ReminderResource($this->reminderService->updateReminder($reminder, $request->validated()))
         );
     }
+
+    /**
+     * @param Request $request
+     * @param Reminder $reminder
+     * @return JsonResponse
+     */
+    public function destroy(Request $request, Reminder $reminder): JsonResponse
+    {
+        throw_if($reminder->user_id != $request->user()->id, AccessDeniedHttpException::class);
+        $reminder->delete();
+        return Helper::apiResponse();
+    }
 }

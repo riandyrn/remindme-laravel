@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('reminders', [ReminderController::class, 'store'])->name('reminders.store');
     Route::get('reminders/{reminder}', [ReminderController::class, 'show'])->name('reminders.show');
     Route::put('reminders/{reminder}', [ReminderController::class, 'update'])->name('reminders.update');
+    Route::delete('reminders/{reminder}', [ReminderController::class, 'destroy'])->name('reminders.destroy');
 });
