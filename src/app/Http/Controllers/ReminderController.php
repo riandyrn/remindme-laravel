@@ -38,6 +38,15 @@ class ReminderController extends Controller
         );
     }
 
+    /**
+     * @param ReminderRequest $request
+     * @return JsonResponse
+     */
+    public function store(ReminderRequest $request): JsonResponse
+    {
+        $userId = $request->user()->id;
+        return Helper::apiResponse(
+            new ReminderResource($this->reminderService->createReminder($userId, $request->validated()))
         );
     }
 }

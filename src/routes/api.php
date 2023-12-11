@@ -26,4 +26,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('session', [AuthController::class, 'refreshToken'])->name('refreshToken');
 
     Route::get('reminders', [ReminderController::class, 'index'])->name('reminders.index');
+    Route::post('reminders', [ReminderController::class, 'store'])->name('reminders.store');
 });
