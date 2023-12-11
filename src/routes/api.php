@@ -20,3 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('session', [AuthController::class, 'login'])->name('login');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::put('session', [AuthController::class, 'refreshToken'])->name('refreshToken');
+});

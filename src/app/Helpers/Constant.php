@@ -10,6 +10,7 @@ class Constant
     public const ERR_FORBIDDEN_ACCESS = "ERR_FORBIDDEN_ACCESS";
     public const ERR_NOT_FOUND = "ERR_NOT_FOUND";
     public const ERR_INTERNAL_ERROR = "ERR_INTERNAL_ERROR";
+    public const ERR_INVALID_REFRESH_TOKEN = "ERR_INVALID_REFRESH_TOKEN";
 
     // In seconds
     public const ACCESS_TOKEN_TTL = 20;
