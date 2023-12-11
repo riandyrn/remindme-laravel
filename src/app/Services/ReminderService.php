@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\DataTransferObjects\Reminder\CreateDto;
 use App\DataTransferObjects\Reminder\ListsDto;
+use App\DataTransferObjects\Reminder\DetailDto;
 use App\Http\Transformers\Api\Reminder\CreateTransformer;
 use App\Http\Transformers\Api\Reminder\ListsTransformer;
+use App\Http\Transformers\Api\Reminder\DetailTransformer;
 use App\Repositories\ReminderRepository;
 use App\Repositories\PersonalAccessTokenRepository;
 
@@ -37,6 +39,21 @@ class ReminderService
         $lists = $this->reminderRepository->getLimit($dto->limit);
 
         return  ListsTransformer::make($lists);
+    }
+
+    public function detail(DetailDto $dto)
+    {
+        $detail = $this->reminderRepository->getDetail($dto->id);
+
+        if ( $detail == null ) {
+            return [
+                'error_code' => 'ERR_NO_RECORD_404',
+                'message' => 'No data record .',
+                'status_code' => 404,
+            ];
+        }
+
+        return  DetailTransformer::make($detail);
     }
 
 

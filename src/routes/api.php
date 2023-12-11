@@ -29,7 +29,8 @@ Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_AP
         return $request->user();
     });
     Route::post('reminders', [ReminderController::class, 'create']);
+    Route::get('reminders', [ReminderController::class, 'getLists']);
+    Route::get('reminders/{id}', [ReminderController::class, 'getDetail']);
 });
-Route::get('reminders', [ReminderController::class, 'getLists']);
 
 
