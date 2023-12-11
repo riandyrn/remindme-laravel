@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\Http\Requests\ReminderRequest;
+use App\Http\Resources\ReminderCollection;
 use App\Http\Resources\ReminderResource;
 use App\Services\ReminderService;
 use Illuminate\Http\JsonResponse;
@@ -27,13 +29,15 @@ class ReminderController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request)
     {
         $limit = $request->get('limit', 10);
         $userId = $request->user()->id;
         return Helper::apiResponse(
-            ReminderResource::collection($this->reminderService->listReminder($userId, $limit))
-                ->additional(['limit' => $limit])
+            new ReminderCollection($this->reminderService->listReminder($userId, $limit), $limit)
+        );
+    }
+
         );
     }
 }
