@@ -19,10 +19,14 @@ use App\Http\Controllers\Api\AuthController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
+Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ISSUE_ACCESS_TOKEN->value]], function() {
+    Route::post('refresh-token', [AuthController::class, 'refreshToken']);
+});
 
 Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_API->value]], function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 });
+
 

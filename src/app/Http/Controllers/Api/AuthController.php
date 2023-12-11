@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Http\Requests\Api\Auth\RegisterRequest;
 use App\Http\Requests\Api\Auth\LoginRequest;
-use App\Helpers\ApiFormatter;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\DataTransferObjects\Auth\RegisterDto;
 use App\DataTransferObjects\Auth\LoginDto;
+use App\DataTransferObjects\Auth\RefreshTokenDto;
+use App\Helpers\ApiFormatter;
+use Illuminate\Http\JsonResponse;
 use App\Services\AuthService;
 use Exception;
 
@@ -69,6 +70,29 @@ class AuthController extends Controller
                     $results['message']
                 );
             }
+
+            return ApiFormatter::responseSuccess(
+                true,
+                $results,
+            );
+
+        } catch (Exception $e) {
+
+            return ApiFormatter::responseError(
+                false,
+                'ERR_INTERNAL_SERVER_500',
+                $e->getMessage(),
+            );
+
+        }
+    }
+
+    public function refreshToken(Request $request): JsonResponse
+    {
+        try {
+            $results = $this->authService->refreshToken(
+                RefreshTokenDto::fromApiRequest($request)
+            );
 
             return ApiFormatter::responseSuccess(
                 true,

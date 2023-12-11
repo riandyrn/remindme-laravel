@@ -4,19 +4,27 @@ namespace App\Services;
 
 use App\DataTransferObjects\Auth\RegisterDto;
 use App\DataTransferObjects\Auth\LoginDto;
+use App\DataTransferObjects\Auth\RefreshTokenDto;
 use App\Http\Transformers\Api\Auth\RegisterTransformer;
 use App\Http\Transformers\Api\Auth\LoginTransformer;
+use App\Http\Transformers\Api\Auth\RefreshTokenTransformer;
 use App\Repositories\UserRepository;
+use App\Repositories\PersonalAccessTokenRepository;
 use App\Enums\TokenAbility;
 use Auth;
 
 class AuthService
 {
     private $userRepository;
+    private $personalAccessToken;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        PersonalAccessTokenRepository $personalAccessTokenRepository
+    )
     {
         $this->userRepository = $userRepository;
+        $this->personalAccessTokenRepository = $personalAccessTokenRepository;
     }
 
     public function register(RegisterDto $dto)
@@ -52,9 +60,9 @@ class AuthService
             )->plainTextToken;
 
             $auth['refresh_token'] = $auth->createToken(
-                'auth_token',
+                'refresh_token',
                 [TokenAbility::ISSUE_ACCESS_TOKEN->value],
-                now()->addDays(1)
+                now()->addDays(3)
             )->plainTextToken;
 
             return LoginTransformer::make($auth);
@@ -65,5 +73,19 @@ class AuthService
                 'message' => 'Email or password is wrong.'
             ];
         }
+    }
+
+    public function refreshToken(RefreshTokenDto $dto)
+    {
+        $token = $this->personalAccessTokenRepository->findByToken($dto->token);
+        $arr['access_token'] = $token->tokenable->createToken(
+            'auth_token',
+            [TokenAbility::ACCESS_API->value],
+            now()->addSeconds(20)
+        )->plainTextToken;
+
+        $data = json_decode(json_encode($arr));
+
+        return RefreshTokenTransformer::make($data);
     }
 }
