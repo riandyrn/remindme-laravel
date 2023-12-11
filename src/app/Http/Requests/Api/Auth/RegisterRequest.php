@@ -25,7 +25,6 @@ class RegisterRequest extends FormRequest
 
         throw new HttpResponseException(
             ApiFormatter::responseError(
-                false,
                 "ERR_VALIDATIONS_422",
                 $errors,
                 422

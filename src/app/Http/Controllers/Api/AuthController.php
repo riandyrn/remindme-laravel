@@ -33,7 +33,6 @@ class AuthController extends Controller
 
             if ( $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
-                    false,
                     $results['error_code'],
                     $results['message'],
                     $results['status_code'],
@@ -41,14 +40,12 @@ class AuthController extends Controller
             }
 
             return ApiFormatter::responseSuccess(
-                true,
                 $results,
             );
 
         } catch (Exception $e) {
 
             return ApiFormatter::responseError(
-                false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
                 500
@@ -67,7 +64,6 @@ class AuthController extends Controller
 
             if ( $results['error_code'] != null ) {
                 return ApiFormatter::responseError(
-                    false,
                     $results['error_code'],
                     $results['message'],
                     $results['status_code'],
@@ -75,14 +71,12 @@ class AuthController extends Controller
             }
 
             return ApiFormatter::responseSuccess(
-                true,
                 $results,
             );
 
         } catch (Exception $e) {
 
             return ApiFormatter::responseError(
-                false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
                 500
@@ -99,14 +93,12 @@ class AuthController extends Controller
             );
 
             return ApiFormatter::responseSuccess(
-                true,
                 $results,
             );
 
         } catch (Exception $e) {
 
             return ApiFormatter::responseError(
-                false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
                 500

@@ -33,7 +33,6 @@ class Handler extends ExceptionHandler
         $this->renderable(function (AuthenticationException $e, $request) {
             if ( $request->is('api/*') ) {
                 return ApiFormatter::responseError(
-                    false,
                     'ERR_UNAUTHORIZED_401',
                     $e->getMessage(),
                     401
@@ -46,7 +45,6 @@ class Handler extends ExceptionHandler
             if ( $request->user() ) {
                 if ( $request->is('api/*') && !$request->user()->tokenCan(TokenAbility::ACCESS_API->value) ) {
                     return ApiFormatter::responseError(
-                        false,
                         'ERR_UNAUTHORIZED_401',
                         $e->getMessage(),
                         401
@@ -55,7 +53,6 @@ class Handler extends ExceptionHandler
 
                 if ( $request->is('api/refresh-token') && !$request->user()->tokenCan(TokenAbility::ISSUE_ACCESS_TOKEN->value) ) {
                     return ApiFormatter::responseError(
-                        false,
                         'ERR_INVALID_REFRESH_TOKEN_401',
                         'invalid refresh token',
                         401

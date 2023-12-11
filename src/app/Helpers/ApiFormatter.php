@@ -9,24 +9,25 @@ class ApiFormatter
         'data' => null,
     ];
 
-    public static function responseSuccess($ok = null, $data = null, $status_code = 200)
+    public static function responseSuccess($data = null, $status_code = 200)
     {
         self::$response = [
-            'ok' => $ok,
+            'ok' => true,
             'data' => $data,
         ];
 
         return response()->json(self::$response, $status_code);
     }
 
-    public static function responseError($ok = null, $err = null, $msg = null, $status_code = 200)
+    public static function responseError($err = null, $msg = null, $status_code = 200)
     {
         self::$response = [
-            'ok' => $ok,
+            'ok' => false,
             'err' => $err,
             'msg' => $msg,
         ];
 
         return response()->json(self::$response, $status_code);
     }
+
 }
