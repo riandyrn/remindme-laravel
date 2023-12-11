@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
 use App\Http\Requests\ReminderRequest;
+use App\Http\Requests\UpdateReminderRequest;
 use App\Http\Resources\ReminderCollection;
 use App\Http\Resources\ReminderResource;
 use App\Models\Reminder;
@@ -52,11 +53,29 @@ class ReminderController extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param Reminder $reminder
+     * @return JsonResponse
+     */
     public function show(Request $request, Reminder $reminder): JsonResponse
     {
-        throw_if($reminder->user_id != $request->user()->id, throw new AccessDeniedHttpException());
+        throw_if($reminder->user_id != $request->user()->id, AccessDeniedHttpException::class);
         return Helper::apiResponse(
             new ReminderResource($reminder)
+        );
+    }
+
+    /**
+     * @param UpdateReminderRequest $request
+     * @param Reminder $reminder
+     * @return JsonResponse
+     */
+    public function update(UpdateReminderRequest $request, Reminder $reminder): JsonResponse
+    {
+        throw_if($reminder->user_id != $request->user()->id, AccessDeniedHttpException::class);
+        return Helper::apiResponse(
+            new ReminderResource($this->reminderService->updateReminder($reminder, $request->validated()))
         );
     }
 }
