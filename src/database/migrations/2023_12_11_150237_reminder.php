@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
+            $table->integer('status')->default(0);
             $table->integer('remind_at');
             $table->integer('event_at');
             $table->integer('created_by');
