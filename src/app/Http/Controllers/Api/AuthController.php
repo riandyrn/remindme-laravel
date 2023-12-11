@@ -35,7 +35,8 @@ class AuthController extends Controller
                 return ApiFormatter::responseError(
                     false,
                     $results['error_code'],
-                    $results['message']
+                    $results['message'],
+                    $results['status_code'],
                 );
             }
 
@@ -50,6 +51,7 @@ class AuthController extends Controller
                 false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
+                500
             );
 
         }
@@ -67,7 +69,8 @@ class AuthController extends Controller
                 return ApiFormatter::responseError(
                     false,
                     $results['error_code'],
-                    $results['message']
+                    $results['message'],
+                    $results['status_code'],
                 );
             }
 
@@ -82,6 +85,7 @@ class AuthController extends Controller
                 false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
+                500
             );
 
         }
@@ -105,6 +109,7 @@ class AuthController extends Controller
                 false,
                 'ERR_INTERNAL_SERVER_500',
                 $e->getMessage(),
+                500
             );
 
         }

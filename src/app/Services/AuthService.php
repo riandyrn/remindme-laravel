@@ -34,7 +34,8 @@ class AuthService
         if ( $checkByEmail ) {
             return [
                 'error_code' => 'ERR_REGISTER_CONFLICT_409',
-                'message' => 'Email exists. choose another one.'
+                'message' => 'Email exists. choose another one.',
+                'status_code' => 409,
             ];
         }
 
@@ -69,8 +70,9 @@ class AuthService
 
         } else {
             return [
-                'error_code' => 'ERR_INVALID_CREDS_404',
-                'message' => 'Email or password is wrong.'
+                'error_code' => 'ERR_INVALID_CREDS_401',
+                'message' => 'Email or password is wrong.',
+                'status_code' => 401,
             ];
         }
     }

@@ -36,26 +36,29 @@ class Handler extends ExceptionHandler
                     false,
                     'ERR_UNAUTHORIZED_401',
                     $e->getMessage(),
+                    401
                 );
             }
         });
 
         $this->renderable(function (Throwable $e, $request) {
 
-            if ( $request->is('api/refresh-token') && $request->user() ) {
-                if ( !$request->user()->tokenCan(TokenAbility::ACCESS_API->value) ) {
+            if ( $request->user() ) {
+                if ( $request->is('api/*') && !$request->user()->tokenCan(TokenAbility::ACCESS_API->value) ) {
                     return ApiFormatter::responseError(
                         false,
                         'ERR_UNAUTHORIZED_401',
                         $e->getMessage(),
+                        401
                     );
                 }
 
-                if ( !$request->user()->tokenCan(TokenAbility::ISSUE_ACCESS_TOKEN->value) ) {
+                if ( $request->is('api/refresh-token') && !$request->user()->tokenCan(TokenAbility::ISSUE_ACCESS_TOKEN->value) ) {
                     return ApiFormatter::responseError(
                         false,
-                        'ERR_INVALID_REFRESH_TOKEN',
+                        'ERR_INVALID_REFRESH_TOKEN_401',
                         'invalid refresh token',
+                        401
                     );
                 }
 

@@ -25,7 +25,8 @@ class LoginRequest extends FormRequest
             ApiFormatter::responseError(
                 false,
                 "ERR_VALIDATIONS_422",
-                $errors
+                $errors,
+                422
             )
         );
     }
