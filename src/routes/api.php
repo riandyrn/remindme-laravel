@@ -25,13 +25,11 @@ Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ISSUE_ACC
 });
 
 Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_API->value]], function() {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
     Route::post('reminders', [ReminderController::class, 'create']);
     Route::get('reminders', [ReminderController::class, 'getLists']);
     Route::get('reminders/{id}', [ReminderController::class, 'getDetail']);
     Route::delete('reminders/{id}', [ReminderController::class, 'delete']);
 });
 
+Route::put('reminders/{id}', [ReminderController::class, 'update']);
 

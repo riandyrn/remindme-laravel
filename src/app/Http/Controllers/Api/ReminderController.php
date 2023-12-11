@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\Reminder\CreateRequest;
+use App\Http\Requests\Api\Reminder\UpdateRequest;
 use App\DataTransferObjects\Reminder\CreateDto;
+use App\DataTransferObjects\Reminder\UpdateDto;
 use App\DataTransferObjects\Reminder\ListsDto;
 use App\DataTransferObjects\Reminder\DetailDto;
 use App\DataTransferObjects\Reminder\DeleteDto;
@@ -29,6 +31,37 @@ class ReminderController extends Controller
 
             $results = $this->reminderService->create(
                 CreateDto::fromApiRequest($request)
+            );
+
+            if ( $results && $results['error_code'] != null ) {
+                return ApiFormatter::responseError(
+                    $results['error_code'],
+                    $results['message'],
+                    $results['status_code'],
+                );
+            }
+
+            return ApiFormatter::responseSuccess(
+                $results,
+            );
+
+        } catch (Exception $e) {
+
+            return ApiFormatter::responseError(
+                'ERR_INTERNAL_SERVER_500',
+                $e->getMessage(),
+                500
+            );
+
+        }
+    }
+
+    public function update(UpdateRequest $request): JsonResponse
+    {
+        try {
+
+            $results = $this->reminderService->update(
+                UpdateDto::fromApiRequest($request)
             );
 
             if ( $results && $results['error_code'] != null ) {

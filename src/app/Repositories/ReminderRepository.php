@@ -39,10 +39,9 @@ class ReminderRepository
         return $results;
     }
 
-    public function update($data, int $id)
+    public function update($data)
     {
-        $getReminder = $this->reminder::findOrFail($id);
-
+        $getReminder = $this->reminder::findOrFail($data->id);
         $getReminder->update([
             'title' => $data->title,
             'description' => $data->description,
