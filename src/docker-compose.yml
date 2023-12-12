@@ -1,0 +1,18 @@
+version: '3'
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: Dockerfile.web
+        working_dir: /var/www
+        volumes:
+             - ../:/var/www/html
+        ports:
+            - "8000:80"
+    app:
+        build:
+          context: .
+          dockerfile: Dockerfile.app
+        working_dir: /var/www
+        volumes:
+             - ../:/var/www/html
