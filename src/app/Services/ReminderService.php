@@ -17,7 +17,7 @@ class ReminderService
     {
         return Reminder::query()
             ->where('user_id', $userId)
-            ->orderBy('remind_at')
+            ->orderBy('remind_at', 'asc')
             ->limit($limit)
             ->get();
     }
