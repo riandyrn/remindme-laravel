@@ -1,0 +1,68 @@
+version: "3.7"
+
+services:
+    app:
+        build:
+            context: ./
+            dockerfile: ./Dockerfile
+        container_name: app
+        volumes:
+            - ./:/var/www
+        ports:
+            - "8000:80"
+        networks:
+            - app-network
+
+    mysql:
+        container_name: mysql
+        image: mariadb:10.6
+        volumes:
+            - dbstore:/var/lib/mysql
+        ports:
+            - 3307:3306
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_DATABASE: "${DB_DATABASE}"
+            MYSQL_USER: "${DB_USERNAME}"
+            MYSQL_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        networks:
+            - app-network
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            retries: 3
+            timeout: 5s
+
+    redis:
+        image: "redis:alpine"
+        ports:
+            - "6378:6379"
+        volumes:
+            - "redistore:/data"
+        networks:
+            - app-network
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+
+    # mailhog
+    mailhog:
+        container_name: mailhog
+        image: mailhog/mailhog
+        ports:
+            - 1025:1025
+            - 6082:8025
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
+volumes:
+    dbstore:
+        driver: local
+    redistore:
+        driver: local

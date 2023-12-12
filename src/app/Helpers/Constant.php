@@ -13,7 +13,7 @@ class Constant
     public const ERR_INVALID_REFRESH_TOKEN = "ERR_INVALID_REFRESH_TOKEN";
 
     // In seconds
-    public const ACCESS_TOKEN_TTL = 20;
+    public const ACCESS_TOKEN_TTL = 60 * 60;
     public const REFRESH_TOKEN_TTL = 60 * 60 * 24 * 7;
 
     public const CAN_ISSUE_ACCESS_TOKEN = 'can-issue-access-token';
