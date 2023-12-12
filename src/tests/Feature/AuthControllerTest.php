@@ -89,16 +89,6 @@ class AuthControllerTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
         ]);
-        // Mocking the HTTP request
-        Http::fake([
-            '*/api/session' => Http::response([
-                'ok' => true,
-                'data' => [
-                    'access_token' => '933e89b1-980b-4c98-8d73-18f7ccfac25d',
-                    'refresh_token' => '8eebef3c-03e0-4ead-b78e-27bac3fc43c',
-                ],
-            ], 200),
-        ]);
 
         // Sending the request to refresh access token
         $response = $this->put('/api/session', [], [
@@ -115,6 +105,27 @@ class AuthControllerTest extends TestCase
                 'data' => [
                     'access_token'
                 ]
+            ]);
+    }
+
+    public function test_refreshes_access_token_invalid_credentials()
+    {
+        // Sending the request to refresh access token
+        $response = $this->put('/api/session', [], [
+            'Authorization' => 'Bearer wrong refresh token ',
+        ]);
+
+        // Asserting the response
+        $response->assertStatus(401)
+            ->assertJson([
+                'ok' => false,
+                'err' => "ERR_INVALID_REFRESH_TOKEN",
+                'msg' => 'invalid refresh token'
+            ])
+            ->assertJsonStructure([
+                'ok',
+                'err',
+                'msg'
             ]);
     }
 }
