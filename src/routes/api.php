@@ -1,7 +1,9 @@
 <?php
 
+use App\Enums\TokenAbility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::post('/session', [AuthController::class, 'login']);
+Route::put('/session', [AuthController::class, 'refreshAccessToken'])->middleware([
+    'auth.rt:sanctum',
+    'ability:'. TokenAbility::ISSUE_ACCESS_TOKEN->value
+]);
