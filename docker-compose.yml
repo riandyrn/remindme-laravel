@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "1234:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: your-laravel-app:latest
+    container_name: laravel_app
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_DATABASE=db_nabitu
+      - DB_USERNAME=mirza
+      - DB_PASSWORD=password
+    depends_on:
+      - db
+    command: bash -c "composer install && php-fpm"
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: db_nabitu
+      MYSQL_USER: mirza
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
