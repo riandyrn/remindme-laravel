@@ -41,7 +41,7 @@ class AuthController extends Controller
     {
         $accessToken = $request->user()->createToken('access_token', [TokenAbility::ACCESS_API->value], Carbon::now()->addSeconds(20));
         return response()->json([
-            "oke" => true,
+            "ok" => true,
             "data" => [
                 "access_token" => $accessToken->plainTextToken
             ]
