@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Exception;
 use Throwable;
+use App\Enums\TokenAbility;
+use Illuminate\Auth\AuthenticationException;
+use Laravel\Sanctum\Exceptions\MissingAbilityException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
 {
@@ -23,8 +27,19 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        // $this->reportable(function (Throwable $e) {
+        //     //
+        // });
+        $this->renderable(function (Exception $e, $request) {
+            if ($request->is('api/*')) {
+                if ($e->getPrevious() instanceof MissingAbilityException) {
+                    return response()->json([
+                        'ok' => false,
+                        'err' => 'ERR_INVALID_REFRESH_TOKEN',
+                        'msg' => 'invalid refresh token'
+                    ], 401);
+                }
+            }
         });
     }
 }
