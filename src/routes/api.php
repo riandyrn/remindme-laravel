@@ -4,6 +4,7 @@ use App\Enums\TokenAbility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\RemindersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,7 @@ Route::put('/session', [AuthController::class, 'refreshAccessToken'])->middlewar
     'auth.rt:sanctum',
     'ability:'. TokenAbility::ISSUE_ACCESS_TOKEN->value
 ]);
+
+Route::prefix('reminders')->group(function() {
+    Route::post('/', [RemindersController::class, 'create']);
+})->middleware('auth:sanctum', 'ability:'. TokenAbility::ACCESS_API->value);
