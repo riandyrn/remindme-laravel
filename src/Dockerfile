@@ -1,3 +1,13 @@
+FROM node:lts AS frontend
+
+WORKDIR /frontend
+
+COPY . /frontend
+
+RUN npm ci --legacy-peer-deps
+
+RUN npm run build
+
 FROM php:8.1-fpm
 
 # Set working directory
@@ -47,7 +57,8 @@ RUN docker-php-ext-enable redis
 COPY docker/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # Copy code to /var/www
-COPY . /var/www
+# COPY . /var/www
+COPY --from=frontend /frontend /var/www
 
 RUN chown -R www-data:www-data /var/www
 
