@@ -15,7 +15,7 @@ class PersonalAccessTokenRepository
 
     public function findByToken(string $token)
     {
-        $token = PersonalAccessToken::findToken($token);
+        $token = $this->personalAccessToken::findToken($token);
         return $token;
     }
 

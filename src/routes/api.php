@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Enums\TokenAbility;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ReminderController;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +26,24 @@ Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ISSUE_ACC
 });
 
 Route::group(['middleware' => ['auth:sanctum','ability:'.TokenAbility::ACCESS_API->value]], function() {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::post('reminders', [ReminderController::class, 'create']);
+    Route::put('reminders/{id}', [ReminderController::class, 'update']);
+    Route::get('reminders', [ReminderController::class, 'getLists']);
+    Route::get('reminders/{id}', [ReminderController::class, 'getDetail']);
+    Route::delete('reminders/{id}', [ReminderController::class, 'delete']);
 });
 
+
+Route::get('send/email', function(){
+    $now = date("Y-m-d H:i", strtotime(Carbon::now()->addHour()));
+    dd(Carbon::now()->timestamp);
+	$send_mail = 'genjerdotkom85@gmail.com';
+
+    dispatch(new App\Jobs\SendMailJob(
+        $send_mail,
+        new App\Mail\SendEmail('contoh title', 'GinanjarDP', 'Contoh description')
+    ));
+
+    dd('send mail successfully !!');
+});
 

@@ -14,13 +14,13 @@ class UserRepository
 
     public function findByEmail(string $email)
     {
-        $checkEmail = User::where('email', $email)->exists();
+        $checkEmail = $this->user::where('email', $email)->exists();
         return $checkEmail;
     }
 
     public function save($data)
     {
-        $results = User::create([
+        $results = $this->user::create([
             'name' => $data->name,
             'email' => $data->email,
             'password' => bcrypt($data->password),
