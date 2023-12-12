@@ -52,8 +52,8 @@ class ReminderService
     {
         $reminder->title = data_get($data, 'title', $reminder->title);
         $reminder->description = data_get($data, 'description', $reminder->description);
-        $reminder->remind_at = Carbon::createFromTimestampUTC(data_get($data, 'remind_at', $reminder->remind_at));
-        $reminder->event_at = Carbon::createFromTimestampUTC(data_get($data, 'event_at', $reminder->event_at));
+        $reminder->remind_at = Carbon::createFromTimestampUTC(data_get($data, 'remind_at', $reminder->remind_at->timestamp));
+        $reminder->event_at = Carbon::createFromTimestampUTC(data_get($data, 'event_at', $reminder->event_at->timestamp));
         $reminder->save();
 
         return $reminder;

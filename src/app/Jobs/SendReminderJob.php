@@ -26,7 +26,11 @@ class SendReminderJob implements ShouldQueue
     {
         $this->id = $id;
 
-        $this->onConnection('database');
+        if (app()->environment('testing')) {
+            $this->onConnection('sync');
+        } else {
+            $this->onConnection('database');
+        }
     }
 
     /**
