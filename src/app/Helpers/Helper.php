@@ -40,7 +40,7 @@ class Helper
     {
         return response()->json([
             'ok' => false,
-            'message' => $message,
+            'msg' => $message,
             'err' => $errCode,
         ], $code);
     }
