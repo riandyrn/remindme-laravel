@@ -5,10 +5,16 @@
     - php artisan optimize
     - php artisan migrate
 
-atau jalankan diluar
+    jika terjadi error, jalankan perintah ini
+    - chown -R www-data:www-data storage
+    - chmod -R 775 storage/ bootstrap/
+
+atau jalankan diluar exec
 docker exec -it laravel_app php artisan optimize
 docker exec -it laravel_app php artisan config:cache
 docker exec -it laravel_app php artisan route:cache
+docker exec -it laravel_app php artisan migrate
+docker exec -it laravel_app chmod -R 775 storage/ bootstrap/
 
 
 - Buka chrome http://localhost:1234
