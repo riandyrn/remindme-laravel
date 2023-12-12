@@ -1,0 +1,22 @@
+name: Laravel Integration Tests
+
+on: [pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 7.4
+
+    - name: Install Dependencies
+      run: composer install
+
+    - name: Run Tests
+      run: composer test
