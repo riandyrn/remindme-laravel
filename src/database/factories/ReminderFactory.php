@@ -24,6 +24,7 @@ class ReminderFactory extends Factory
             'description' => 'description',
             'remind_at' => Carbon::createFromTimestampUTC(1702369949),
             'event_at' => Carbon::createFromTimestampUTC(1702369949),
+            'is_reminded' => false
         ];
     }
 }
