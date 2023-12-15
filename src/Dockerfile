@@ -70,9 +70,12 @@ RUN cp docker/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir /var/log/php
 RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
 
-# Deployment steps
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
+RUN chmod +x /var/www/docker/run.sh
+
 RUN composer install --optimize-autoloader --no-dev
 
 EXPOSE 80
 
-ENTRYPOINT ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/var/www/docker/run.sh"]

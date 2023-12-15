@@ -12,6 +12,14 @@ services:
             - "8000:80"
         networks:
             - app-network
+        depends_on:
+            - mysql
+            - redis
+            - mailhog
+        links:
+            - mysql
+            - redis
+            - mailhog
 
     mysql:
         container_name: mysql
@@ -22,15 +30,15 @@ services:
             - 3307:3306
         command: --default-authentication-plugin=mysql_native_password
         environment:
-            MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
-            MYSQL_DATABASE: "${DB_DATABASE}"
-            MYSQL_USER: "${DB_USERNAME}"
-            MYSQL_PASSWORD: "${DB_PASSWORD}"
+            MYSQL_ROOT_PASSWORD: ""
+            MYSQL_DATABASE: "remindme"
+            MYSQL_USER: "root"
+            MYSQL_PASSWORD: ""
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         networks:
             - app-network
         healthcheck:
-            test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+            test: ["CMD", "mysqladmin", "ping", "-p"]
             retries: 3
             timeout: 5s
 
