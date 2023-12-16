@@ -1,44 +1,11 @@
-name: test
-
+name: docker-compose-actions-workflow
 on: push
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    # services:
-    #   mysql:
-    #     image: mysql:5.7
-    #     env:
-    #       MYSQL_ROOT_PASSWORD: ${{ secrets.DB_PASSWORD }}
-    #       MYSQL_DATABASE: db_test
-    #     ports:
-    #       - 33306:3306
-    #     options: >-
-    #       --health-cmd="mysqladmin ping"
-    #       --health-interval=10s
-    #       --health-timeout=5s
-    #       --health-retries=3
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: supercharge/redis-github-action@1.1.0
-      - name: Setup PHP with PECL extension
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.1"
-      - name: Laravel Setup
-        run: |
-          cd src
-          cp .env.example .env
-          composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-          php artisan key:generate
-          chmod -R 777 storage bootstrap/cache
-      - name: Run Test
-        # env:
-        #   DB_DATABASE: db_test
-        #   DB_PORT: 33306
-        #   DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-        run: |
-          cd src
-          php artisan test
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose up -d
+      - name: Test
+        run: docker run --network container:app appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8000
