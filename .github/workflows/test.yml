@@ -8,8 +8,7 @@ jobs:
       - name: Build the stack
         run: |
           cd src
-          docker-compose up -d
+          docker-compose up --build -d
       - name: Test
         run: |
-          docker exec app composer install
           docker exec app php artisan test
