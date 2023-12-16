@@ -24,3 +24,4 @@ docker run --rm \
 ```
 This command uses a small Docker container containing PHP and Composer to install the application's dependencies.
 After that you can run any php artisan command with Sail.
+- `./vendor/bin/sail up`
