@@ -2,7 +2,7 @@
 
 cd /var/www
 
-# composer install --optimize-autoloader --no-dev
+composer install --optimize-autoloader --no-dev
 
 cp .env.example .env
 php artisan key:generate

@@ -15,13 +15,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::query()
-            ->create([
+            ->firstOrCreate(['email' => 'alice@mail.com'], [
                 'name' => 'Alice',
                 'email' => 'alice@mail.com',
                 'password' => Hash::make('123456')
             ]);
         User::query()
-            ->create([
+            ->firstOrCreate(['email' => 'bob@mail.com'], [
                 'name' => 'Bob',
                 'email' => 'bob@mail.com',
                 'password' => Hash::make('123456')
