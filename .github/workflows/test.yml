@@ -11,4 +11,5 @@ jobs:
           docker-compose up --build -d
       - name: Test
         run: |
+          docker exec app composer update
           docker exec app php artisan test
