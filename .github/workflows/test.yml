@@ -10,4 +10,6 @@ jobs:
           cd src
           docker-compose up -d
       - name: Test
-        run: docker exec app php artisan test
+        run: |
+          docker exec app composer install
+          docker exec app php artisan test

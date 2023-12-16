@@ -74,7 +74,7 @@ RUN groupadd -g 1000 www
 RUN useradd -u 1000 -ms /bin/bash -g www www
 RUN chmod +x /var/www/docker/run.sh
 
-RUN composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+RUN composer install
 
 EXPOSE 80
 

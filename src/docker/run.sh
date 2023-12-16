@@ -2,7 +2,7 @@
 
 cd /var/www
 
-composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+composer install
 
 cp .env.example .env
 php artisan key:generate
