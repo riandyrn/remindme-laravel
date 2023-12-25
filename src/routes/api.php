@@ -18,4 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
     
-Route::post('/session',[SessionController::class, 'login']);
+Route::middleware([BearerTokenMustExists::class])->group(function () {
+    Route::post('/session',[SessionController::class, 'login'])->withoutMiddleware([BearerTokenMustExists::class]);
+    Route::put('/session',[SessionController::class, 'refresh']);
+});
