@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\SessionController;
+use App\Http\Middleware\BearerTokenMustExists;
+use App\Http\Middleware\EnsureRefeshTokenIsExists;
+use App\Http\Middleware\EnsureTokenIsExists;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +17,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    
+Route::post('/session',[SessionController::class, 'login']);
